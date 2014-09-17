@@ -49,5 +49,37 @@ namespace TestProject.UnitTests.Tests
             }
             Assert.IsNotNull(user);
         }
+
+        [TestMethod]
+        public void ShouldSaveUserProvince()
+        {
+            var newUser = GetUserModel();
+            var someCountryId = GetSomeCountryID();
+            var someprovinceID = GetsomeProvinceId(someCountryId);
+            using (TransactionScope scope = new TransactionScope())
+            {
+                sut.SignUpUser(newUser.email, newUser.password);
+                newUser = sut.GetUserByEmail(newUser.email);
+                sut.SaveUserProvince(Convert.ToInt32(newUser.id), someprovinceID);
+                newUser = sut.GetUserByEmail(newUser.email);
+            }
+            Assert.IsTrue(!String.IsNullOrEmpty(newUser.provinceId));
+        }
+
+        private UserModel GetUserModel()
+        {
+            return new UserModel() { email = "randomMail@.randomMail@.com", password = "randomPassword123" };
+        }
+
+        private int GetSomeCountryID()
+        {
+            return Convert.ToInt32(sut.GetCountries().FirstOrDefault().id);
+        }
+
+        private int GetsomeProvinceId(int countryId)
+        {
+            return Convert.ToInt32(sut.GetProvinces(countryId).FirstOrDefault().id);
+        }
+
     }
 }

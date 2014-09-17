@@ -10,10 +10,9 @@ namespace TestProjectSavchenko.Controllers
     {
         private DataFacade dataFacade;
 
-        public WizardController()
+        public WizardController(DataFacade dataFacade)
         {
-            var mappperProvider = new MapperProvider();
-            dataFacade = new DataFacade(mappperProvider);
+            this.dataFacade = dataFacade;
         }
 
         public ActionResult Validate()
@@ -39,7 +38,7 @@ namespace TestProjectSavchenko.Controllers
         [HttpPost]
         public JsonResult SaveLocation(UserModel userModel)
         {
-            dataFacade.SaveUser(userModel);
+            dataFacade.SaveUserProvince(Convert.ToInt32(userModel.id), Convert.ToInt32(userModel.provinceId));
             var message = "User information has been saved";
             return Json(new { resultMessage = message });
         }

@@ -16,6 +16,7 @@ namespace TestProject.UnitTests.Tests
         [TestInitialize]
         public void Init()
         {
+            mapperProvider = new MapperProvider();
             sut = mapperProvider.GetMapper<CountryMapper>();
             country = GetCountry();
         }

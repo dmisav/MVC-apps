@@ -118,9 +118,15 @@ namespace TestProject.DataAccessLayer
             }
         }
 
-        public void SaveUser(UserModel userModel)
-        { 
-             
+        public void SaveUserProvince(int userId, int provinceId)
+        {
+            using (var db = new TestTaskDBEntities())
+            {
+                var user = db.Users.Find(userId);
+                if (user == null) throw new NonExistingUserException("Given User does not exist");
+                  user.PROVINCE = Convert.ToInt32(provinceId);
+                  db.SaveChanges();
+            }
         }
 
     }
