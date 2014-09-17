@@ -1,0 +1,44 @@
+﻿@model TestProject.DataAccessLayer.Entities.UserModel
+
+@{
+    ViewBag.Title = "Location";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/ViewModels/LocationVM.js"></script>
+
+<input type="hidden" id="UserId" value="@Model.id" />
+<input type="hidden" id="CountryId" value="@Model.countryId" />
+<input type="hidden" id="ProvinceId" value="@Model.provinceId" />
+<div class="center-block container">
+<form class="form-horizontal ">
+    <div class="form-group">
+        <label for="dlSelectCountry" class="control-label col-xs-2">Select Country</label>
+        <div class="col-xs-10">
+             <select class="form-control" id="dlSelectCountry"
+                     data-bind="options: availableCountries,
+                     optionsText: 'name',
+                     value: selectedCountry,
+                     optionsCaption: 'Choose Country...'">
+             </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="dlSelectProvince" class="control-label col-xs-2">Select Province</label>
+        <div class="col-xs-10">
+             <select class="form-control" id="dlSelectProvince"
+                     data-bind="options: availableProvinces,
+                     optionsText: 'name',
+                     value: selectedProvince,
+                     optionsCaption: 'Choose Country First...'">
+             </select>
+        </div>
+    <div class="form-group">
+        <div class="col-xs-offset-2 col-xs-10">
+            <button type="button" data-bind='click: save' class="btn btn-primary">Save</button>
+        </div>
+    </div>
+    <div class="padLeft"><p id="ResultMessage" class="validationMessage"></p></div>
+</form>
+</div>
+
+

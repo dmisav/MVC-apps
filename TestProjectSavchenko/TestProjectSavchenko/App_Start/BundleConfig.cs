@@ -25,6 +25,9 @@ namespace TestProjectSavchenko.App_Start
             bundles.Add(new ScriptBundle("~/bundles/knockout").Include(
                         "~/Scripts/knockout-3.2.0.js",
                         "~/Scripts/knockout.validation.js"));
+
+            bundles.Add(new ScriptBundle("~/ViewModels/Common").Include(
+                        "~/Scripts/ViewModels/Common.js"));
         }
     }
 }

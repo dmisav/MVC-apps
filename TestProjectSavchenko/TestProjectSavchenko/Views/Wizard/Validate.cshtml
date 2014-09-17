@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "Validate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/ViewModels/LoginVM.js"></script>
+
+<div class="center-block container">
+<form class="form-horizontal ">
+    <div class="form-group">
+        <label for="inputEmail" class="control-label col-xs-2">Email</label>
+        <div class="col-xs-10">
+            <input type="text" class="form-control" id="inputEmail" placeholder="Email" data-bind="value: inputEmail">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputPassword" class="control-label col-xs-2">Password</label>
+        <div class="col-xs-10">
+            <input type="password" class="form-control" id="inputPassword" placeholder="Password" data-bind="value: inputPassword">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="confirmInputPassword" class="control-label col-xs-2">Confirm Password</label>
+        <div class="col-xs-10">
+            <input type="password" class="form-control" id="confirmInputPassword" placeholder="Confirm Password"  data-bind="value: confirmInputPassword">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-offset-2 col-xs-10">
+            <div class="checkbox">
+                <label><input type="checkbox" data-bind="checked: isAccepted"> Agree to work for money;)</label>
+            </div>
+            <span class="validationMessage" data-bind='validationMessage: isAccepted'></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xs-offset-2 col-xs-10">
+            <button type="button" data-bind='click: submit' class="btn btn-primary">go to Step 2</button>
+        </div>
+    </div>
+    <div class="padLeft"><p id="ResultMessage" class="validationMessage"></p></div>
+</form>
+</div>

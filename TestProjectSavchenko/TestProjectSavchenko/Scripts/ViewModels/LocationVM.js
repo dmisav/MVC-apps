@@ -1,18 +1,11 @@
 ﻿$(document).ready(function () {
-    var model = new LocationViewModel();
+    var countryId = GetCurrentCountryId();
+    var countriesArray = GetCountries();
+    var provincesArray = GetProvinces(countryId);
+    var provinceId = GetCurrentProvinceId();
+    var model = new LocationViewModel(countriesArray, countryId, provincesArray, provinceId);
     SetUserId(model);
-    LoadCountries(model);
     ko.applyBindings(model);
-});
-
-
-ko.validation.configure({
-    decorateElement: true,
-    messagesOnModified: true,
-    registerExtenders: true,
-    insertMessages: true,
-    parseInputAttributes: true,
-    messageTemplate: null
 });
 
 var Country = function (id, name) {
@@ -26,19 +19,33 @@ var Province = function (id, name, countryId) {
     this.countryId = countryId;
 };
 
-var LocationViewModel = function () {
+var LocationViewModel = function (countriesArray, countryId, provincesArray, provinceId) {
     var self = this;
-    self.availableCountries = ko.observableArray();
+    self.availableCountries = ko.observableArray(countriesArray);
     self.currentUser = ko.observable();
-    self.selectedCountry = ko.observable().extend({
-        required: { message: "Country Must Be Selected" }
-    });
 
-    self.availableProvinces = ko.observableArray();
+    if (countryId) {
+        self.selectedCountry = ko.observable(self.availableCountries.find("id", countryId)).extend({
+            required: { message: "Country Must Be Selected" }
+        });
+    }
+    else {
+        self.selectedCountry = ko.observable().extend({
+            required: { message: "Country Must Be Selected" }
+        });
+    }
 
-    self.selectedProvince = ko.observable().extend({
-        required: { message: "Province Must Be Selected" }
-    });
+        self.availableProvinces = ko.observableArray(provincesArray);
+    if (provinceId) {
+        self.selectedProvince = ko.observable(self.availableProvinces.find("id", provinceId)).extend({
+            required: { message: "Province Must Be Selected" }
+        });
+    }
+    else {
+        self.selectedProvince = ko.observable().extend({
+            required: { message: "Province Must Be Selected" }
+        });
+    }
 
     self.selectedCountry.subscribe(function (newCountry) {
         if (newCountry) {
@@ -51,7 +58,7 @@ var LocationViewModel = function () {
     self.displayAlert = ko.observable(false);
     self.save = function () {
         if (self.errors().length == 0) {
-          //  ValidateUser(self.inputEmail, self.inputPassword);
+            SaveUser(self.currentUser, self.selectedCountry().id, self.selectedProvince().id);
             self.displayAlert = ko.observable(false);
         } else {
             self.displayAlert(true);
@@ -61,11 +68,34 @@ var LocationViewModel = function () {
     self.errors = ko.validation.group(this);
 }
 
-function LoadCountries(model)
-{
-    $.getJSON("/Wizard/GetCountries", null, function (data) {
-        model.availableCountries(data);
-    });
+function GetCountries() {
+        var countries="";
+        $.ajax({
+            async: false,
+            dataType : 'json',
+            url: "/Wizard/GetCountries",
+            type : 'GET',
+            success: function(data) {
+                countries = data;
+                }
+            }
+        );
+    return countries;
+}
+
+function GetProvinces(countryId) {
+    var provinces = "";
+    $.ajax({
+        async: false,
+        dataType: 'json',
+        url: "/Wizard/GetProvinces/" + countryId,
+        type: 'GET',
+        success: function (data) {
+            provinces = data;
+        }
+    }
+    );
+    return provinces;
 }
 
 function SetUserId(model) {
@@ -73,38 +103,27 @@ function SetUserId(model) {
     model.currentUser(userId);
 }
 
-//that.submit = function () {
-//var json1 = ko.toJSON(that.Employee);
-//$.ajax({
-//    url: '/Employee/SaveEmployee',
-//    type: 'POST',
-//    dataType: 'json',
-//    data: json1,
-//    contentType: 'application/json; charset=utf-8',
-//    success: function (data) {
-//        var message = data.Message;
-//    }
-//});
+function GetCurrentCountryId() {
+    return $('#CountryId').val()
+}
 
-//
-//
-//function ValidateUser(email, password) {
-//    var jsonObj = ko.toJSON({
-//        email: email,
-//        password: password
-//    });
-//    $.ajax("/Authorize/ValidateUser", {
-//        type: 'POST',
-//        dataType: 'json',
-//        data: jsonObj,
-//        contentType: 'application/json; charset=utf-8',
-//        success: function (response) {
-//            if (response.isValidUser) {
-//                window.location.href = response.url;
-//            }
-//            else {
-//                $("#ResultMessage").text(response.validationResultMessage);
-//            }
-//        }
-//    });
-//}
+function GetCurrentProvinceId() {
+    return $('#ProvinceId').val()
+}
+
+function SaveUser(userId, countryId, provinceId) {
+    var jsonObj = ko.toJSON({
+        id: userId,
+        provinceId: provinceId,
+        countryId: countryId
+    });
+    $.ajax("/Wizard/SaveLocation", {
+        type: 'POST',
+        dataType: 'json',
+        data: jsonObj,
+        contentType: 'application/json; charset=utf-8',
+        success: function (response) {
+            $("#ResultMessage").text(response.resultMessage);
+        }
+    });
+}

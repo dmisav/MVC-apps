@@ -1,23 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Web.Mvc;
-using TestProjectSavchenko.Entities;
-using System.Linq;
+using TestProject.DataAccessLayer;
+using TestProject.DataAccessLayer.Entities;
+using TestProject.DataAccessLayer.Mappers;
 
 namespace TestProjectSavchenko.Controllers
 {
     public class WizardController : Controller
     {
-        public class ProvinceModel
-        {
-           public string id {get;set;}
-           public string name {get;set;}
-           public string countryId {get;set;}
-        }
+        private DataFacade dataFacade;
 
-        public class CountryModel
+        public WizardController()
         {
-            public string id { get; set; }
-            public string name { get; set; }
+            var mappperProvider = new MapperProvider();
+            dataFacade = new DataFacade(mappperProvider);
         }
 
         public ActionResult Validate()
@@ -25,44 +21,41 @@ namespace TestProjectSavchenko.Controllers
             return View();
         }
 
-        public ActionResult Location()
+        public ActionResult Location(string userId)
         {
-            return View(model: "123");
+            var user = dataFacade.GetUserByUserID(Convert.ToInt32(userId));
+            return View(user);
         }
 
         [HttpPost]
         public JsonResult ValidateUser(UserModel userModel)
         {
-            if (userModel != null)
-            {
-                var redirectUrl = new UrlHelper(Request.RequestContext).Action("Location", "Wizard", new { userId = "7e96b930-a786-44dd-8576-052ce608e38f" });
-                return Json(new { isValidUser = true, url = redirectUrl });
-            }
-            else
-                return Json(new { isValidUser = false, validationResultMessage = "User does not exist" });
+            dataFacade.SignUpUser(userModel.email, userModel.password);
+            var foundUser = dataFacade.GetUserByEmail(userModel.email);
+            var redirectUrl = new UrlHelper(Request.RequestContext).Action("Location", "Wizard", new { userId = foundUser.id});
+            return Json(new { url = redirectUrl });
+        }
+
+        [HttpPost]
+        public JsonResult SaveLocation(UserModel userModel)
+        {
+            dataFacade.SaveUser(userModel);
+            var message = "User information has been saved";
+            return Json(new { resultMessage = message });
         }
 
         [HttpGet]
         public JsonResult GetProvinces(string id)
         {
-            List<ProvinceModel> list = new List<ProvinceModel>(){             
-                new ProvinceModel(){ countryId = "65000000", id = "1", name = "Kiev" },
-                new ProvinceModel(){ countryId = "65000001", id = "2", name = "Kharkov" },
-                new ProvinceModel(){ countryId = "65000002", id = "3", name = "Odessa" }};
-          
-          return this.Json(list.Where(x=> x.countryId == id) , JsonRequestBehavior.AllowGet);
+            var provinces = dataFacade.GetProvinces(Convert.ToInt32(id));
+            return this.Json(provinces, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
         public JsonResult GetCountries()
         {
-            List<CountryModel> list = new List<CountryModel>(){             
-                new CountryModel(){id = "65000000", name = "Ukraine" },
-                new CountryModel(){id = "65000001", name = "Russia" },
-                new CountryModel(){id = "65000002", name = "Norway" }};
-
-            return this.Json(list, JsonRequestBehavior.AllowGet);
+            var countries = dataFacade.GetCountries();
+            return this.Json(countries, JsonRequestBehavior.AllowGet);
         }
-
     }
 }

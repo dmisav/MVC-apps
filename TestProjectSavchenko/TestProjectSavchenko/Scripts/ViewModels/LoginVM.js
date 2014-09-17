@@ -2,20 +2,6 @@
     ko.applyBindings(new LoginViewModel());
 });
 
-var patterns = {
-    email: /^([\d\w-\.]+@([\d\w-]+\.)+[\w]{2,4})?$/,
-    password: /^(?:[0-9]+[a-z]|[a-z]+[0-9])[a-z0-9]*$/i
-};
-
-ko.validation.configure({
-    decorateElement: true,
-    messagesOnModified: true,
-    registerExtenders: true,
-    insertMessages: true,
-    parseInputAttributes: true,
-    messageTemplate: null
-});
-
 var LoginViewModel = function()
 {
     var self = this;
@@ -86,12 +72,7 @@ function ValidateUser(email, password) {
     data: jsonObj,
     contentType: 'application/json; charset=utf-8',
     success: function (response) {
-        if (response.isValidUser) {
             window.location.href = response.url;
-        }
-        else {
-            $("#ResultMessage").text(response.validationResultMessage);
-        }
     }
 });
 }

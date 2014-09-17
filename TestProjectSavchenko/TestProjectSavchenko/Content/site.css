@@ -12,3 +12,7 @@
 .validationMessage {
     color: Red;
 }
+
+.padLeft {
+    padding-left:20px;
+}

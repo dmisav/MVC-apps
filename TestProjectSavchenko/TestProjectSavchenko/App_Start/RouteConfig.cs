@@ -16,7 +16,7 @@ namespace TestProjectSavchenko
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Wizard", action = "Location", id = UrlParameter.Optional }
+                defaults: new { controller = "Wizard", action = "Validate", id = UrlParameter.Optional }
             );
         }
     }

@@ -81,12 +81,12 @@ ALTER TABLE [dbo].[CountryProvince] CHECK CONSTRAINT [FK_Country_CountryProvince
 GO
 
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Province_CountryProvince]') AND parent_object_id = OBJECT_ID(N'[dbo].[CountryProvince]'))
-ALTER TABLE [dbo].[CountryProvince]  WITH CHECK ADD  CONSTRAINT [FK_Province_CountryProvince] FOREIGN KEY([COUNTRY_ID])
+ALTER TABLE [dbo].[CountryProvince]  WITH CHECK ADD  CONSTRAINT [FK_Province_CountryProvince] FOREIGN KEY([PROVINCE_ID])
 REFERENCES [dbo].[Province] ([ID])
 ON DELETE CASCADE
 GO
 IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Province_CountryProvince]') AND parent_object_id = OBJECT_ID(N'[dbo].[CountryProvince]'))
-ALTER TABLE [dbo].[CountryProvince] CHECK CONSTRAINT [FK_Country_CountryProvince]
+ALTER TABLE [dbo].[CountryProvince] CHECK CONSTRAINT [FK_Province_CountryProvince]
 GO
 
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Province_User]') AND parent_object_id = OBJECT_ID(N'[dbo].[User]'))
