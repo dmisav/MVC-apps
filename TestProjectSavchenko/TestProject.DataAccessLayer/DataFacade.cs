@@ -7,27 +7,6 @@ using TestProject.DataAccessLayer.Mappers;
 
 namespace TestProject.DataAccessLayer
 {
-
-    public class MapperProvider
-    {
-        public IMapper GetMapper<T>()
-       {
-           if(typeof(T) == typeof(CountryMapper))
-           {
-               return new CountryMapper();
-           }
-           if (typeof(T) == typeof(ProvinceMapper))
-           {
-               return new ProvinceMapper();
-           }
-           if (typeof(T) == typeof(UserMapper))
-           {
-               return new UserMapper();
-           }
-           else throw new NotImplementedException("Mapper type is not supported");
-       }
-    }
-
     public class DataFacade
     {
         private IMapper countryMapper;
@@ -124,10 +103,9 @@ namespace TestProject.DataAccessLayer
             {
                 var user = db.Users.Find(userId);
                 if (user == null) throw new NonExistingUserException("Given User does not exist");
-                  user.PROVINCE = Convert.ToInt32(provinceId);
-                  db.SaveChanges();
+                user.PROVINCE = Convert.ToInt32(provinceId);
+                db.SaveChanges();
             }
         }
-
     }
 }

@@ -66,6 +66,7 @@
     <Compile Include="Entities\UserModel.cs" />
     <Compile Include="Exceptions\MapperException.cs" />
     <Compile Include="Exceptions\NonExistingUserException.cs" />
+    <Compile Include="MapperProvider.cs" />
     <Compile Include="Mappers\CountryMapper.cs" />
     <Compile Include="Mappers\IMapper.cs" />
     <Compile Include="Mappers\ProvinceMapper.cs" />
