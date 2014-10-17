@@ -17,7 +17,7 @@ div.package-list { /*listing og all packages*/
         line-height: 32px;
     }
 
-        div.package-list span:hover,div.package-list span.current {
+        div.package-list span:hover, div.package-list span.current {
             color: blue;
             cursor: pointer;
         }
@@ -30,21 +30,29 @@ div.package-list { /*listing og all packages*/
     height: 600px;
 }
 
-.package-content > .item1 {
-    left: 25%; top: 50%; margin: -30px;
-}
+    .package-content .item0 {
+        left: 25%;
+        top: 50%;
+        margin: -30px;
+    }
 
-.package-content > .item2 {
-    left: 50%; top: 75%; margin: -30px;
-}
+    .package-content .item1 {
+        left: 50%;
+        top: 75%;
+        margin: -30px;
+    }
 
-.package-content > .item3 {
-    left: 50%; top: 25%; margin: -30px;
-}
+    .package-content .item2 {
+        left: 50%;
+        top: 25%;
+        margin: -30px;
+    }
 
-.package-content > .item4 {
-    left: 75%; top: 50%; margin: -30px;
-}
+    .package-content .item3 {
+        left: 75%;
+        top: 50%;
+        margin: -30px;
+    }
 
 .circleEnabled {
     background: rgb(77, 67, 213);
@@ -65,7 +73,9 @@ div.package-list { /*listing og all packages*/
     cursor: default;
     line-height: 150px;
     font-family: Helvetica;
-    left: 50%; top: 50%; margin: -75px;
+    left: 50%;
+    top: 50%;
+    margin: -75px;
 }
 
 .circleBase {
