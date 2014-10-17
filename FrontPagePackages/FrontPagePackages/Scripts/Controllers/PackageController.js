@@ -2,12 +2,12 @@
 
 app.controller('PackageController', function ($http) {
     var PkgCtrl = this;
-    PkgCtrl.items = [];
-    PkgCtrl.packages = [];
-    PkgCtrl.selectedPkg = {};
     Init();
 
     function Init() {
+        PkgCtrl.items = [];
+        PkgCtrl.packages = [];
+        PkgCtrl.selectedPkg = {};
         GetAllItems();
         GetAllPackages();
     }
@@ -19,6 +19,17 @@ app.controller('PackageController', function ($http) {
     PkgCtrl.IsCurrent = function(packageParam)
     {
         return packageParam == PkgCtrl.selectedPkg;
+    }
+
+    PkgCtrl.IsItemEnabled = function (itemName) {
+        if (!isObjectEmpty(PkgCtrl.selectedPkg))
+        {
+            for (var i = PkgCtrl.selectedPkg.items.length - 1; i > -1; i--) {
+                if (PkgCtrl.selectedPkg.items[i].DisplayName === itemName)
+                    return "circleEnabled";
+            }
+        }
+        return "circleDisabled";
     }
 
     function GetAllItems() {
@@ -35,4 +46,12 @@ app.controller('PackageController', function ($http) {
         });
     };
 
+    function isObjectEmpty(object) {
+        var isEmpty = true;
+        for (keys in object) {
+            isEmpty = false;
+            break;
+        }
+        return isEmpty;
+    }
 });

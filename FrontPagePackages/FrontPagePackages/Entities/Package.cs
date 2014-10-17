@@ -2,14 +2,14 @@
 
 namespace FrontPagePackages.Entities
 {
-    public class Package
+    public class Package : IDisplayableName
     {
         public Package(string displayName)
         {
-            this.DispayName = displayName;
+            this.DisplayName = displayName;
         }
 
-        public string DispayName { get; private set; }
+        public string DisplayName { get; private set; }
 
         public List<Item> items { get; set; }
     }

@@ -4,7 +4,6 @@
 
 div.package-list {
     text-align: center;
-    border: 1px solid black;
     width: 600px;
     margin: 0 auto;
 }
@@ -29,7 +28,22 @@ div.package-list {
     text-align: left;
     width: 600px;
     height: 600px;
-    border: 1px solid black;
+}
+
+.package-content > .item1 {
+    left: 25%; top: 50%; margin: -30px;
+}
+
+.package-content > .item2 {
+    left: 50%; top: 75%; margin: -30px;
+}
+
+.package-content > .item3 {
+    left: 50%; top: 25%; margin: -30px;
+}
+
+.package-content > .item4 {
+    left: 75%; top: 50%; margin: -30px;
 }
 
 .circleEnabled {
@@ -49,6 +63,8 @@ div.package-list {
     width: 150px;
     height: 150px;
     cursor: default;
+    line-height: 150px;
+    left: 50%; top: 50%; margin: -75px;
 }
 
 .circleBase {

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace FrontPagePackages.Entities
+﻿namespace FrontPagePackages.Entities
 {
-    public class Item
+    public class Item : IDisplayableName
     {
         public Item(string displayName, string toolTieText)
         {
@@ -14,6 +9,7 @@ namespace FrontPagePackages.Entities
         }
 
         public string DisplayName { get; private set; }
+
         public string ToolTieText { get; private set; }
     }
 }
