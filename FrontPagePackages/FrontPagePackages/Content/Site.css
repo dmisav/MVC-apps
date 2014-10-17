@@ -64,6 +64,7 @@ div.package-list { /*listing og all packages*/
     height: 150px;
     cursor: default;
     line-height: 150px;
+    font-family: Helvetica;
     left: 50%; top: 50%; margin: -75px;
 }
 
@@ -75,6 +76,7 @@ div.package-list { /*listing og all packages*/
     text-align: center;
     line-height: 60px;
     font-size: 14px;
+    font-family: Helvetica;
     font-weight: bold;
     color: #fff;
 }
@@ -82,6 +84,7 @@ div.package-list { /*listing og all packages*/
     .circleBase:before {
         content: '';
         font-weight: bold;
+        font-family: Helvetica;
         text-align: center;
         color: #fff;
     }
@@ -106,6 +109,7 @@ div.package-list { /*listing og all packages*/
         top: -12px;
         color: #322828;
         font-size: 13px;
+        font-family: Helvetica;
         line-height: 1.4;
     }
 
