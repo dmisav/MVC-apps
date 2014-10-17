@@ -2,7 +2,7 @@
     text-align: center;
 }
 
-div.package-list {
+div.package-list { /*listing og all packages*/
     text-align: center;
     width: 600px;
     margin: 0 auto;
@@ -13,7 +13,7 @@ div.package-list {
         padding: 0 40px;
         color: gray;
         text-decoration: none;
-        font: bold 12px Arial;
+        font: 20px Helvetica;
         line-height: 32px;
     }
 
@@ -96,7 +96,7 @@ div.package-list {
     .circleBase p { /* The tooltip */
         display: none;
         text-align: left;
-        background-color: #2490c6;
+        background-color: #b8c0e3;
         padding: 20px;
         width: 100px;
         position: absolute;
@@ -104,7 +104,7 @@ div.package-list {
         box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
         left: 65px;
         top: -12px;
-        color: #FFF;
+        color: #322828;
         font-size: 13px;
         line-height: 1.4;
     }
@@ -115,9 +115,9 @@ div.package-list {
             width: 0;
             height: 0;
             border: 6px solid transparent;
-            border-right-color: #2490c6;
+            border-right-color: #b8c0e3;
             left: -12px;
-            top: 24px;
+            top: 28px;
         }
 
         .circleBase p:after { /* Prevents the tooltip from being hidden */
