@@ -18,7 +18,7 @@ div.package-list {
         line-height: 32px;
     }
 
-        div.package-list span:hover {
+        div.package-list span:hover,div.package-list span.current {
             color: blue;
             cursor: pointer;
         }
